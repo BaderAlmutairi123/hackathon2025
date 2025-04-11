@@ -18,7 +18,7 @@ export function App() {
           <img src={preactLogo} class="logo preact" alt="Preact logo" />
         </a>
       </div>
-      <h1 className={""}>Vite + Preact</h1>
+      <h1 className={"text-blue-800 "}>Vite + Preact</h1>
       <div class="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
@@ -27,7 +27,7 @@ export function App() {
           Edit <code>src/app.tsx</code> and save to test HMR
         </p>
       </div>
-      <p className="">
+      <p className="text-amber-800">
         Check out{' '}
         <a
           href="https://preactjs.com/guide/v10/getting-started#create-a-vite-powered-preact-app"
