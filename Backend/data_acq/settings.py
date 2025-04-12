@@ -21,7 +21,29 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-$g#a@8mxen%f^jcz78uapsh0vin#=2=#7j=#e&g+1my6ju0$(w'
+# Try to get SECRET_KEY from environment variable
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
+
+# If not in environment, try to read from a file
+if not SECRET_KEY:
+  secret_file = os.path.join(BASE_DIR, '.env', 'secret_key')
+  try:
+      with open(secret_file) as f:
+          SECRET_KEY = f.read().strip()
+  except (FileNotFoundError, IOError):
+      # Generate a new secret key if neither env var nor file exists
+      SECRET_KEY = ''.join(secrets.choice(
+          'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
+      ) for i in range(50))
+      
+      # Try to save the key to a file for future use
+      try:
+          os.makedirs(os.path.dirname(secret_file), exist_ok=True)
+          with open(secret_file, 'w') as f:
+              f.write(SECRET_KEY)
+      except (FileNotFoundError, IOError, PermissionError):
+          # If we can't write to the file, just use the generated key for this session
+          pass
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
