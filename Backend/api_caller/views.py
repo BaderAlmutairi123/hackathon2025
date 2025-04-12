@@ -39,10 +39,26 @@ def fetch_services(request):
     if request.method == 'POST':
         data = json.loads(request.body)
 
-        category = data.get('category', 'plumber')
+        print(data)
         
-        category = "plumber" if "plumber".lower().strip() in category else ""
         
+        category = data.get('category')
+        
+        services = {
+            "plumber": "plumber",
+            "HVAC": "HVAC",
+            "electrician": "electrician",
+        }
+        
+        category: str = str(category)
+        
+        words = [word for word in category]
+        
+        
+        for word in words:
+            if word in services:
+                category = services[word]
+                
         location = data.get('location', 'Hempstead, NY')
 
         print(f"category: {category}")
