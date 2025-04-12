@@ -1,5 +1,3 @@
-import { useState } from "preact/hooks";
-
 export type ServiceResult = {
     name: string;
     rating: number;
@@ -33,30 +31,3 @@ export type ServiceResult = {
     }
   }
 
-type Message = {
-    role: 'user' | 'ai';
-    content: string;
-  };
-  
-  export function useChatHandler(initialMessages: Message[] = []) {
-    const [messages, setMessages] = useState<Message[]>(initialMessages);
-  
-    const handleSend = async (message: string) => {
-      setMessages((prev) => [...prev, { role: "user", content: message }]);
-  
-      const results = await fetchServices(message, "Hempstead, NY");
-  
-      if (results.length === 0) {
-        setMessages((prev) => [...prev, { role: "ai", content: "No services found for that." }]);
-        return;
-      }
-  
-      const formatted = results.map((s) =>
-        `• ${s.name} (${s.rating}⭐) - ${s.location}`
-      ).join("\n");
-  
-      setMessages((prev) => [...prev, { role: "ai", content: formatted }]);
-    };
-  
-    return { messages, handleSend };
-  }

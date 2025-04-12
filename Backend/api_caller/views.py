@@ -38,7 +38,11 @@ def format_yelp_response(businesses):
 def fetch_services(request):
     if request.method == 'POST':
         data = json.loads(request.body)
+
         category = data.get('category', 'plumber')
+        
+        category = "plumber" if "plumber".lower().strip() in category else ""
+        
         location = data.get('location', 'Hempstead, NY')
 
         print(f"category: {category}")
@@ -56,7 +60,7 @@ def fetch_services(request):
             "sort_by": "best_match"
         }
 
-        url = f"https://api.yelp.com/v3/businesses/search?location={location}&term={category}&categories=&sort_by=best_match&limit=5"
+        url = f"https://api.yelp.com/v3/businesses/search?location={location}&term={category}&categories=&sort_by=best_match&limit=4"
         res = requests.get(url, headers=headers)
         raw_results = res.json().get('businesses', [])
         

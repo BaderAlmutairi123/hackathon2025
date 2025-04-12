@@ -48,7 +48,7 @@ export default function ChatInput({
       w-full max-w-2xl px-4 py-3 
       bg-gray-900 border 
       ${isFocused ? 'border-blue-500 shadow-lg shadow-blue-500/20' : 'border-gray-700'} 
-      rounded-2xl transition-all duration-200 ease-in-out
+      rounded-2xl transition-all duration-200 ease-in-out justify-center
     `}>
       <div className="flex items-end gap-2">
         <div className="relative flex-1">

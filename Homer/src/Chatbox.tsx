@@ -29,7 +29,7 @@ export default function ChatBox() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-900 text-white p-4">
+    <div className="flex flex-col min-h-screen bg-gray-900 text-white p-4 ">
       <div className="flex-1 overflow-y-auto">
         {messages.map((msg, i) => (
           <div key={i} className={`my-2 ${msg.role === 'user' ? 'text-right' : 'text-left'}`}>
