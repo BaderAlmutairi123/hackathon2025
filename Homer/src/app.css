@@ -24,3 +24,11 @@
 .read-the-docs {
   color: #888;
 }
+
+.big-text {
+  font-size: 64px;
+}
+
+.small-text {
+  font-size: 24px;
+}

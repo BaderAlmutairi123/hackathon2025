@@ -12,13 +12,14 @@ export function App() {
     <>
       <div>
         <a href="https://vite.dev" target="_blank">
-          <img src={"https://avatars.githubusercontent.com/u/148819856?v=4"} class="logo" alt="Bader logo" />
+          <img src={"https://raw.githubusercontent.com/BaderAlmutairi123/hackathon2025/50b448f4647dad41393a6df32b33487349ef2caf/Homer/src/assets/Homer%20logo%20final.svg"} class="logo" alt="Homer logo final" />
         </a>
         <a href="https://preactjs.com" target="_blank">
-          <img src={preactLogo} class="logo preact" alt="Preact logo" />
+          <img src={"https://raw.githubusercontent.com/BaderAlmutairi123/hackathon2025/50b448f4647dad41393a6df32b33487349ef2caf/Homer/src/assets/Homer%20logo%20final.svg"} class="logo preact" alt="Preact logo" />
         </a>
       </div>
-      <h1 className={""}>Homer</h1>
+      <h1 className={"big-text"}>Homer</h1>
+      <h1 className={"small-text"}> A hub for skilled trades </h1>
       <div class="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
