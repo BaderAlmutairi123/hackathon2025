@@ -56,7 +56,7 @@ def fetch_services(request):
             "sort_by": "best_match"
         }
 
-        url = f"https://api.yelp.com/v3/businesses/search?location={location}&term={category}&categories=&sort_by=best_match&limit=20"
+        url = f"https://api.yelp.com/v3/businesses/search?location={location}&term={category}&categories=&sort_by=best_match&limit=5"
         res = requests.get(url, headers=headers)
         raw_results = res.json().get('businesses', [])
         
