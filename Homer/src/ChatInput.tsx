@@ -1,16 +1,19 @@
 import { useState } from 'preact/hooks';
+import { ServiceResult } from './messages';
+
+
 
 type ChatInputProps = {
-    onSend: (message: string) => void;
+    onSend: (message: string) => Promise<void>;
 }
 
 
 export default function ChatInput({ onSend }: ChatInputProps) {
   const [text, setText] = useState("");
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (text.trim() === "") return;
-    onSend(text);
+    await onSend(text);
     setText(""); // clear after sending
   };
 
