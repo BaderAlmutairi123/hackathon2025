@@ -15,8 +15,25 @@ def home_test(request):
     return HttpResponse("How'd you get here?? ...")
 
 
+def format_yelp_response(businesses):
+    formatted = []
+    for b in businesses:
+        formatted.append({
+            "name": b["name"],
+            "rating": b.get("rating", "N/A"),
+            "categories": [cat["title"] for cat in b.get("categories", [])],
+            "location": ", ".join(b["location"].get("display_address", [])),
+            "phone": b.get("display_phone", ""),
+            "url": b.get("url", "")
+        })
+    return formatted
+
+
+
 
 @csrf_exempt
+
+
 
 def fetch_services(request):
     if request.method == 'POST':
@@ -41,18 +58,22 @@ def fetch_services(request):
 
         url = f"https://api.yelp.com/v3/businesses/search?location={location}&term={category}&categories=&sort_by=best_match&limit=20"
         res = requests.get(url, headers=headers)
-        print(res.text)
-        results = res.json().get('businesses', [])
+        raw_results = res.json().get('businesses', [])
+        
+        results = []
+        for b in raw_results:
+            results.append({
+                "name": b["name"],
+                "rating": b.get("rating", "N/A"),
+                "categories": [c["title"] for c in b.get("categories", [])],
+                "location": ", ".join(b["location"].get("display_address", [])),
+                "phone": b.get("display_phone", ""),
+                "image_url": b.get("image_url", ""),
+                "url": b.get("url", "")
+            })
+            
 
-        simplified = [{
-            'name': b['name'],
-            'rating': b['rating'],
-            'url': b['url'],
-            'location': b['location']['address1'],
-            'phone': b.get('display_phone')
-
-        } for b in results]
-
-        return JsonResponse({'results': simplified})
+        return JsonResponse({'results': results})
+    
     return JsonResponse({'error': 'Invalid request'}, status=400)
 
